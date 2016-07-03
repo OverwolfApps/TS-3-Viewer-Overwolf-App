@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>Teamspeak 3 Viewer</title>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.ts3viewer.min.js"></script>
+	<link rel="stylesheet" href="css/tree.css" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+  </head>
+  <body>
+	<div class="container">
+		<p>
+			<button type="button" class="btn btn-success btn-sm" id="refresh">
+				<span class="glyphicon glyphicon-refresh"></span> Refresh
+			</button>
+			<button type="button" class="btn btn-info btn-sm" id="expand">
+				<span class="glyphicon glyphicon-plus"></span> Expand All
+			</button>
+			<button type="button" class="btn btn-info btn-sm" id="collapse">
+				<span class="glyphicon glyphicon-minus"></span> Collapse All
+			</button>
+		</p>
+		<div id="tsviewer"></div>
+	</div>
+	<script type="text/javascript">
+		$("#tsviewer").tsviewer({
+		host: "178.254.26.68",
+		port: "9988",
+		serverTip:  "Clients: $users/$slots",
+		channelTip: "Codec: $codec",
+		clientTip:  "Version: $version on $platform",
+		onNode:  function(elem, node) {},
+		onReady: function(data, count) {
+			$('title').text(data[0].name);
+		},
+		onError: function(error) {}
+	});
+	$("#refresh").click(function() {
+		$("#tsviewer").tsviewerRefresh(true);
+	});
+	$("#expand").click(function() {
+		$("#tsviewer").tsviewerExpand();
+	}); 
+	$("#collapse").click(function() {
+		$("#tsviewer").tsviewerCollapse();
+	});
+	</script>
+  </body>
+</html>
